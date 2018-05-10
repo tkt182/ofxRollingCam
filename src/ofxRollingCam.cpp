@@ -37,7 +37,7 @@ void ofxRollingCam::update(){
 }
 //--------------------------------------------------------------
 
-void ofxRollingCam::begin(){
+void ofxRollingCam::begin(ofRectangle viewport){
     ofPushMatrix();
 //    cam.begin();
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
@@ -63,13 +63,14 @@ void ofxRollingCam::setCamSpeed(float _camSpeed){
 void ofxRollingCam::setRandomPos(float _randomAngle){
     ofVec3f ram3f;
     int ramSize=_randomAngle;
+    _angle = ramSize;
     ram3f.set(ofRandom(-ramSize, ramSize),ofRandom(-ramSize, ramSize),ofRandom(-ramSize, ramSize));
     posT.set(ofRandom(posN.x,(int)(posN.x+ram3f.x)%360), ofRandom(posN.y,(int)(posN.y+ram3f.y)%360),ofRandom(posN.z,(int)(posN.z+ram3f.z)%360));
 }
 //--------------------------------------------------------------
 
 void ofxRollingCam::setPos(float _x,float _y,float _z){
-    posT.set(_x,_y,_z);
+    posT.set(_x, _y, _z);
 }
 //--------------------------------------------------------------
 
@@ -81,6 +82,31 @@ void ofxRollingCam::setRandomScale(float _min,float _max){
 void ofxRollingCam::setScale(float _scale){
     scaleT=_scale;
 }
+
+
+void ofxRollingCam::reset(){
+    posN = ofVec3f(0.0);
+    posS = ofVec3f(0.0);
+    posT = ofVec3f(0.0);
+}
+
+ofVec3f ofxRollingCam::getPosN(){
+    return posN;
+}
+
+ofVec3f ofxRollingCam::getPosT(){
+    return posT;
+}
+
+ofVec3f ofxRollingCam::getPosS(){
+    return posS;
+}
+
+float ofxRollingCam::getAngle(){
+    return (float)_angle;
+}
+
+
 
 //--------------------------------------------------------------
 //void testApp::mousePressed(int x, int y, int button){
